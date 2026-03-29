@@ -63,7 +63,6 @@
   padding: 20px !important;
   cursor: pointer;
   transition: all 0.3s ease;
-
   border-width: 3px;
 }
 
@@ -87,6 +86,93 @@
   line-height: 1.4;
 }
 
+.fusion-results {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.results-table {
+  padding: 20px !important;
+  overflow-x: auto;
+}
+
+.results-table h3 {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+
+.fusion-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fusion-table thead {
+  background: #ffeb3b;
+  border: 2px solid #000;
+}
+
+.fusion-table th {
+  padding: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: left;
+  border: 1px solid #000;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.fusion-table td {
+  padding: 12px;
+  border: 1px solid #000;
+  font-size: 13px;
+}
+
+.fusion-table tbody tr:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+.technique-name-col {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.best-technique-info {
+  margin-top: 20px;
+  padding: 16px;
+  border: 3px solid #ffeb3b;
+  background: #fffacd;
+  text-align: center;
+}
+
+.best-label {
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+
+.best-name {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.best-accuracy {
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #51cf66;
+}
+
 @media (max-width: 768px) {
   .sources-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -94,6 +180,15 @@
 
   .fusion-techniques {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fusion-table {
+    font-size: 11px;
+  }
+
+  .fusion-table th,
+  .fusion-table td {
+    padding: 8px;
   }
 }
 
@@ -106,3 +201,4 @@
     grid-template-columns: 1fr;
   }
 }
+
