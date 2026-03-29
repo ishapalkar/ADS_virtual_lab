@@ -1,0 +1,82 @@
+.training-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.models-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.model-card {
+  padding: 20px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.model-name {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.model-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.param {
+  font-size: 12px;
+  opacity: 0.7;
+  letter-spacing: 0.5px;
+}
+
+.model-card .neo-button {
+  margin-top: auto;
+}
+
+.metrics-section {
+  padding: 24px !important;
+}
+
+.metrics-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.metric {
+  padding: 12px;
+  border: 2px solid #000;
+  background: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.metric:hover {
+  background: #ffeb3b;
+  transform: translate(-1px, -1px);
+}
+
+@media (max-width: 768px) {
+  .models-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .models-grid {
+    grid-template-columns: 1fr;
+  }
+}
