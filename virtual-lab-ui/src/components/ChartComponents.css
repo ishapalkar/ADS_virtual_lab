@@ -16,6 +16,15 @@
   height: auto;
 }
 
+.chart-scroll {
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.chart-scroll svg {
+  min-width: 100%;
+}
+
 /* Confusion Matrix */
 .confusion-matrix {
   display: grid;

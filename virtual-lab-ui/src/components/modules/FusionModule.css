@@ -55,13 +55,12 @@
 
 .fusion-techniques {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 16px;
 }
 
 .technique {
   padding: 20px !important;
-  cursor: pointer;
   transition: all 0.3s ease;
   border-width: 3px;
 }
@@ -136,9 +135,76 @@
   background: #f9f9f9;
 }
 
+.fusion-table tbody tr:hover {
+  background: #fff9c4;
+}
+
 .technique-name-col {
   font-weight: bold;
   text-transform: capitalize;
+}
+
+.metric-chip {
+  display: inline-block;
+  min-width: 62px;
+  padding: 4px 8px;
+  text-align: center;
+  border: 2px solid #000;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+}
+
+.metric-chip.high {
+  background: #b9fbc0;
+}
+
+.metric-chip.mid {
+  background: #ffe66d;
+}
+
+.metric-chip.low {
+  background: #ffd6a5;
+}
+
+.fusion-insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.insight-card {
+  padding: 18px !important;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.insight-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.85;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.insight-main {
+  font-size: 15px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  line-height: 1.35;
+}
+
+.insight-sub {
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 0.8;
 }
 
 .best-technique-info {
@@ -173,6 +239,69 @@
   color: #51cf66;
 }
 
+.learning-hub {
+  padding: 20px !important;
+}
+
+.learning-hub h3,
+.lab-activities h3 {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+
+.learning-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.learning-card {
+  border: 2px solid #000;
+  padding: 14px;
+  background: #fffdf2;
+}
+
+.learning-title {
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.learning-line {
+  font-size: 12px;
+  line-height: 1.45;
+  margin-bottom: 6px;
+}
+
+.learning-line:last-child {
+  margin-bottom: 0;
+}
+
+.lab-activities {
+  padding: 20px !important;
+  background: #f2fbff;
+}
+
+.lab-activities ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.lab-activities li {
+  margin-bottom: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.lab-activities li:last-child {
+  margin-bottom: 0;
+}
+
 @media (max-width: 768px) {
   .sources-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -180,6 +309,14 @@
 
   .fusion-techniques {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fusion-insights-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .learning-grid {
+    grid-template-columns: 1fr;
   }
 
   .fusion-table {
@@ -198,6 +335,10 @@
   }
 
   .fusion-techniques {
+    grid-template-columns: 1fr;
+  }
+
+  .fusion-insights-grid {
     grid-template-columns: 1fr;
   }
 }

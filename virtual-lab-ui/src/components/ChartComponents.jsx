@@ -3,56 +3,123 @@ import './ChartComponents.css'
 
 // Simple Bar Chart
 export function BarChart({ data, title, colors = ['#ffeb3b', '#51cf66', '#bd93f9'] }) {
-  const maxValue = Math.max(...data.map(d => d.value || 0))
-  const padding = 40
+  if (!data || data.length === 0) return null
+
+  const safeValues = data.map((d) => Number(d.value) || 0)
+  const maxValue = Math.max(...safeValues, 0.01)
+
+  const width = Math.max(420, data.length * 72)
+  const height = 280
+  const padding = {
+    top: 20,
+    right: 20,
+    bottom: data.length > 5 ? 78 : 56,
+    left: 46,
+  }
+  const chartWidth = width - padding.left - padding.right
+  const chartHeight = height - padding.top - padding.bottom
+  const slotWidth = chartWidth / data.length
+  const barWidth = Math.max(14, slotWidth * 0.72)
+  const rotateLabels = data.length > 5
+  const yTicks = 4
 
   return (
     <div className="chart-container neo-card">
       <h3>{title}</h3>
-      <svg width="100%" height="250" viewBox="0 0 400 250">
-        {/* Bars */}
-        {data.map((item, idx) => {
-          const barHeight = (item.value / maxValue) * 150
-          const x = padding + idx * ((400 - 2 * padding) / data.length)
-          const barWidth = (400 - 2 * padding) / data.length * 0.8
-          const y = 200 - barHeight
+      <div className="chart-scroll">
+        <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
+          {/* Horizontal grid and y-axis labels */}
+          {Array.from({ length: yTicks + 1 }).map((_, idx) => {
+            const fraction = idx / yTicks
+            const y = padding.top + chartHeight - chartHeight * fraction
+            const tickValue = maxValue * fraction
 
-          return (
-            <g key={idx}>
-              <rect
-                x={x}
-                y={y}
-                width={barWidth}
-                height={barHeight}
-                fill={colors[idx % colors.length]}
-                stroke="#000"
-                strokeWidth="2"
-              />
-              <text
-                x={x + barWidth / 2}
-                y={220}
-                textAnchor="middle"
-                fontSize="10"
-              >
-                {item.label}
-              </text>
-              <text
-                x={x + barWidth / 2}
-                y={y - 5}
-                textAnchor="middle"
-                fontSize="11"
-                fontWeight="bold"
-              >
-                {item.value?.toFixed(3)}
-              </text>
-            </g>
-          )
-        })}
+            return (
+              <g key={`grid-${idx}`}>
+                <line
+                  x1={padding.left}
+                  y1={y}
+                  x2={width - padding.right}
+                  y2={y}
+                  stroke="#ddd"
+                  strokeWidth="1"
+                  strokeDasharray="4"
+                />
+                <text
+                  x={padding.left - 8}
+                  y={y + 4}
+                  textAnchor="end"
+                  fontSize="10"
+                  fontWeight="bold"
+                >
+                  {tickValue.toFixed(2)}
+                </text>
+              </g>
+            )
+          })}
 
-        {/* Axes */}
-        <line x1={padding} y1={200} x2={400 - padding} y2={200} stroke="#000" strokeWidth="2" />
-        <line x1={padding} y1="20" x2={padding} y2="200" stroke="#000" strokeWidth="2" />
-      </svg>
+          {/* Bars */}
+          {data.map((item, idx) => {
+            const value = Number(item.value) || 0
+            const barHeight = (value / maxValue) * chartHeight
+            const x = padding.left + idx * slotWidth + (slotWidth - barWidth) / 2
+            const y = padding.top + chartHeight - barHeight
+            const labelX = x + barWidth / 2
+            const labelY = height - padding.bottom + 18
+
+            return (
+              <g key={idx}>
+                <rect
+                  x={x}
+                  y={y}
+                  width={barWidth}
+                  height={barHeight}
+                  fill={colors[idx % colors.length]}
+                  stroke="#000"
+                  strokeWidth="2"
+                />
+                <text
+                  x={labelX}
+                  y={y - 6}
+                  textAnchor="middle"
+                  fontSize="11"
+                  fontWeight="bold"
+                >
+                  {value.toFixed(3)}
+                </text>
+                <text
+                  x={labelX}
+                  y={labelY}
+                  textAnchor="middle"
+                  fontSize="10"
+                  fontWeight="bold"
+                  transform={rotateLabels ? `rotate(-35 ${labelX} ${labelY})` : undefined}
+                >
+                  {item.label}
+                </text>
+              </g>
+            )
+          })}
+
+          {/* Axes */}
+          <line
+            x1={padding.left}
+            y1={padding.top + chartHeight}
+            x2={width - padding.right}
+            y2={padding.top + chartHeight}
+            stroke="#000"
+            strokeWidth="2"
+          />
+          <line
+            x1={padding.left}
+            y1={padding.top}
+            x2={padding.left}
+            y2={padding.top + chartHeight}
+            stroke="#000"
+            strokeWidth="2"
+          />
+        </svg>
+      </div>
     </div>
   )
 }
