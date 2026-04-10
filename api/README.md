@@ -199,7 +199,7 @@ pip install -r requirements.txt
 Frontend connects via `http://localhost:5000/api`
 
 CORS enabled for:
-- `http://localhost:5173` (Vite dev)
+- `http://localhost:8501` (Streamlit UI)
 - `http://localhost:3000` (alternative)
 
 Update in `app.py` if needed:

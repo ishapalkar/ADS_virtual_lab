@@ -20,7 +20,7 @@ from utils.cache import cache
 
 # Create Flask app
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5173", "http://localhost:3000"]}})
+CORS(app, resources={r"/api/*": {"origins": ["http://localhost:8501", "http://localhost:3000"]}})
 
 # Error handler
 @app.errorhandler(Exception)

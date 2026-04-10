@@ -1,18 +1,15 @@
 # 🧪 ADS Virtual Lab - Advanced Data Science Interactive Platform
 
-A complete, production-ready Advanced Data Science virtual lab with a modern React + Vite frontend and Python Flask backend. Implements all 10 steps of the data science pipeline from raw data to machine learning model evaluation and data fusion.
+A complete, production-ready Advanced Data Science virtual lab with a Streamlit frontend and Python Flask backend. Implements all 10 steps of the data science pipeline from raw data to machine learning model evaluation and data fusion.
 
 ## ✨ Features
 
-### 🎨 Frontend (React + Vite)
-- **Neobrutalism UI**: Bold 3px borders, geometric shapes, stark colors
-- **Cartoony Whiteboard Theme**: Clean, playful, educational aesthetic
-- **Smooth Animations**: Splash screen, slide transitions, bounce effects
-- **Fully Responsive**: Mobile, tablet, and desktop support
-- **Interactive Modules**: 6 clickable modules for each step
-- **Real-time Visualizations**: Charts, tables, confusion matrices
-- **Error Handling**: User-friendly error messages and alerts
-- **Loading States**: Spinners and progress indicators
+### 🎨 Frontend (Streamlit)
+- **Single Python UI stack**: Streamlit app integrated with Flask backend
+- **Interactive Modules**: Data, cleaning, imputation, preprocessing, models, clustering, fusion, pipeline
+- **Real-time Visualizations**: Charts, tables, confusion matrices, PCA scatter plots
+- **Error Handling**: Inline API error feedback and status checks
+- **Loading States**: Streamlit spinners for long-running operations
 
 ### 🔬 Backend (Python Flask)
 - **Complete ML Pipeline**: All 10 steps implemented
@@ -46,7 +43,6 @@ A complete, production-ready Advanced Data Science virtual lab with a modern Rea
 
 ### Prerequisites
 - Python 3.8+
-- Node.js 16+
 - ~2GB disk space
 
 ### Installation
@@ -57,10 +53,9 @@ cd api
 pip install -r requirements.txt
 ```
 
-**Frontend:**
+**Frontend (Streamlit):**
 ```bash
-cd virtual-lab-ui
-npm install
+api/.venv/Scripts/python.exe -m pip install -r virtual-lab-ui/requirements.txt
 ```
 
 ### Run
@@ -71,7 +66,7 @@ npm install
 cd api && python app.py
 
 # Terminal 2 - Frontend
-cd virtual-lab-ui && npm run dev
+api/.venv/Scripts/python.exe -m streamlit run virtual-lab-ui/app.py --server.port 8501
 ```
 
 **Option 2: One Command (Windows)**
@@ -79,7 +74,7 @@ cd virtual-lab-ui && npm run dev
 double-click start.bat
 ```
 
-Then open: **http://localhost:5173**
+Then open: **http://localhost:8501**
 
 ---
 
@@ -104,29 +99,11 @@ d:/DL/ADS_virtual_lab/
 │       ├── ml_models.py                LR, RF, XGBoost
 │       ├── fusion.py                   Data fusion
 │       └── clustering.py               K-Means + PCA
-└── 📁 virtual-lab-ui/                  ← Frontend React
-    ├── src/
-    │   ├── App.jsx                     Main app
-    │   ├── index.css                   Global styles
-    │   ├── utils/
-    │   │   └── api.js                  API client
-    │   └── components/
-    │       ├── Dashboard.jsx            Main dashboard
-    │       ├── Header.jsx               App header
-    │       ├── SplashScreen.jsx         Splash screen
-    │       ├── ModuleCard.jsx           Module cards
-    │       ├── ChartComponents.jsx      Charts
-    │       ├── modules/
-    │       │   ├── DataViewer.jsx       Data loading
-    │       │   ├── CleaningModule.jsx   Data cleaning
-    │       │   ├── PreprocessingModule.jsx Preprocessing
-    │       │   ├── ModelTrainingModule.jsx Model training ⭐
-    │       │   └── FusionModule.jsx     Data fusion ⭐
-    │       └── *.css                    Component styles
-    ├── index.html
-    ├── vite.config.js
-    ├── package.json
-    └── README.md
+└── 📁 virtual-lab-ui/                  ← Frontend Streamlit
+   ├── app.py                          Main Streamlit UI
+   ├── requirements.txt                UI dependencies
+   ├── .gitignore
+   └── README.md
 ```
 
 ---
@@ -203,18 +180,20 @@ K-Means with k=2-5:
 - **Shadows**: Hard drop shadows (4-6px offset)
 - **Interactions**: Lift & shadow on hover, click animations
 
-### Six Interactive Modules
-1. **Data Loader** 📊 - Dataset statistics
-2. **Data Cleaning** 🧹 - Cleaning pipeline
-3. **Preprocessing** ⚡ - Encoding & scaling
-4. **Model Training** 🤖 - LR, RF, XGBoost
-5. **Clustering** 📈 - K-Means + PCA
-6. **Data Fusion** 🔗 - 5 fusion techniques ⭐
+### Interactive Modules
+1. **Overview** 📋 - Health and workflow summary
+2. **Data Loader** 📊 - Dataset statistics and sample rows
+3. **Data Cleaning** 🧹 - Cleaning + missing summary
+4. **Imputation** 🩹 - Mode, KNN, MICE + comparison
+5. **Preprocessing** ⚡ - Encoding, scaling, train-test split
+6. **Model Training** 🤖 - LR, RF, XGBoost metrics
+7. **Clustering** 📈 - K-Means, PCA, elbow method
+8. **Data Fusion** 🔗 - Multi-technique fusion report
+9. **Pipeline Runner** ▶ - End-to-end execution
 
-### Responsive Design
-- **Desktop**: Full grid layout
-- **Tablet**: Adjusted spacing
-- **Mobile**: Single column, optimized touch
+### Layout
+- **Desktop**: Wide dashboard layout
+- **Mobile/Tablet**: Streamlit responsive column collapse
 
 ---
 
@@ -237,20 +216,20 @@ K-Means with k=2-5:
 ## 🔧 Tech Stack
 
 ### Frontend
-- React 18.2
-- Vite 5.x
-- Lucide React (icons)
-- CSS3 (animations, grid, flex)
+- Streamlit
+- Requests
+- Altair
+- Pandas
 
 ### Backend
 - Python 3.8+
-- Flask 2.3
+- Flask 3.0
 - Flask-CORS
-- Pandas 2.0
-- NumPy 1.24
-- scikit-learn 1.3
-- XGBoost 2.0
-- SciPy 1.11
+- Pandas 2.3
+- NumPy 2.1
+- scikit-learn 1.5
+- XGBoost 2.1
+- SciPy 1.14
 
 ### Data
 - UCI Adult Dataset (32,562 samples)
@@ -285,11 +264,11 @@ K-Means with k=2-5:
    ```
 
 2. **Open Browser**
-   Navigate to `http://localhost:5173`
+   Navigate to `http://localhost:8501`
 
 3. **Interact with Modules**
-   - Click module cards
-   - Click "Load Dataset", "Train", "Run Fusion", etc.
+   - Select modules from the sidebar
+   - Click action buttons (Load Dataset, Train Models, Run Fusion, etc.)
    - View real-time results
 
 4. **Explore Data**
@@ -364,8 +343,7 @@ Educational use - Advanced Data Science learning platform
 
 ## 🙌 Built With
 
-- ⚡ **Vite** - Lightning fast builds
-- ⚛️ **React** - Flexible UI framework
+- 🎈 **Streamlit** - Interactive Python frontend
 - 🐍 **Flask** - Lightweight Python backend
 - 📊 **scikit-learn** - ML algorithms
 - 🚀 **XGBoost** - State-of-the-art boosting
@@ -374,4 +352,4 @@ Educational use - Advanced Data Science learning platform
 
 **Ready to explore advanced data science concepts!** 🎉
 
-Open http://localhost:5173 to get started →
+Open http://localhost:8501 to get started →

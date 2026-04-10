@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a complete Advanced Data Science Virtual Lab with a modern React + Vite frontend and Python Flask backend. It implements all 10 steps of the data science pipeline:
+This is a complete Advanced Data Science Virtual Lab with a Streamlit frontend and Python Flask backend. It implements all 10 steps of the data science pipeline:
 
 1. **Load Dataset** - UCI Adult dataset (32K+ rows)
 2. **Data Understanding** - Feature analysis and statistics
@@ -20,7 +20,6 @@ This is a complete Advanced Data Science Virtual Lab with a modern React + Vite 
 ## Prerequisites
 
 - **Python 3.8+** installed
-- **Node.js 16+** and **npm** installed
 - **Git** (optional, for version control)
 - ~2GB disk space
 
@@ -41,17 +40,11 @@ pip install -r requirements.txt
 pip list | grep flask
 ```
 
-### Step 2: Frontend Setup
+### Step 2: Frontend Setup (Streamlit)
 
 ```bash
-# Navigate to frontend directory
-cd virtual-lab-ui
-
-# Install JavaScript dependencies
-npm install
-
-# Verify installation
-npm list react
+# Install Streamlit UI dependencies in the API virtual environment
+api/.venv/Scripts/python.exe -m pip install -r virtual-lab-ui/requirements.txt
 ```
 
 ---
@@ -74,25 +67,20 @@ You should see:
 
 **Terminal 2 - Frontend:**
 ```bash
-cd virtual-lab-ui
-npm run dev
+api/.venv/Scripts/python.exe -m streamlit run virtual-lab-ui/app.py --server.port 8501
 ```
 
 You should see:
 ```
-  VITE v5.x ready in xxx ms
-
-  ➜  Local:   http://localhost:5173/
-  ➜  press h to show help
+   You can now view your Streamlit app in your browser.
+   Local URL: http://localhost:8501
 ```
 
 ### Option B: One-Command Start (Windows)
 
-Create `start.bat`:
+Use `start.bat`:
 ```batch
-@echo off
-start cmd /k "cd api && python app.py"
-start cmd /k "cd virtual-lab-ui && npm run dev"
+start.bat
 ```
 
 Then:
@@ -106,7 +94,7 @@ Create `start.sh`:
 ```bash
 #!/bin/bash
 cd api && python app.py &
-cd virtual-lab-ui && npm run dev &
+python -m streamlit run virtual-lab-ui/app.py --server.port 8501 &
 ```
 
 Then:
@@ -121,30 +109,30 @@ chmod +x start.sh
 
 ### 1. Open the Application
 
-Open your browser and go to: **http://localhost:5173**
+Open your browser and go to: **http://localhost:8501**
 
-You'll see the ADS Virtual Lab splash screen with animations.
+You'll see the ADS Virtual Lab Streamlit dashboard with module navigation in the sidebar.
 
 ### 2. Complete Pipeline Walkthrough
 
 #### **Module 1: Data Loader**
-- Click "Data Loader" card
+- Select **Data Loader** from the Streamlit sidebar
 - View dataset statistics: 32,562 rows, 15 features
 - See feature list and class distribution
 - Click "Reload Dataset" to refresh data
 
 #### **Module 2: Data Cleaning**
-- Click "Data Cleaning" card
+- Select **Data Cleaning** from the Streamlit sidebar
 - View cleaning steps pipeline
 - Handles: missing values, duplicates, category fixing, outlier detection
 
 #### **Module 3: Preprocessing**
-- Click "Preprocessing" card
+- Select **Preprocessing** from the Streamlit sidebar
 - Shows: One-Hot Encoding, StandardScaler, 80-20 split
 - Displays processed feature count and training samples
 
 #### **Module 4: Model Training** ⭐
-- Click "Model Training" card
+- Select **Model Training** from the Streamlit sidebar
 - Click "Train All Models" button
 - Trains 3 models: Logistic Regression, Random Forest, XGBoost
 - Displays accuracy comparison chart
@@ -152,14 +140,14 @@ You'll see the ADS Virtual Lab splash screen with animations.
 - Shows confusion matrix for best model
 
 #### **Module 5: Clustering**
-- Click "Clustering" card
+- Select **Clustering** from the Streamlit sidebar
 - Runs K-Means clustering (k=2,3,4,5)
 - Shows Silhouette scores and Davies-Bouldin index
 - Displays PCA visualization of clusters
 - Shows elbow method curve
 
 #### **Module 6: Data Fusion** ⭐
-- Click "Data Fusion" card
+- Select **Data Fusion** from the Streamlit sidebar
 - Click "Run Fusion Comparison" button
 - Compares 5 approaches:
   - No Fusion (baseline)
@@ -303,12 +291,10 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### Issue: npm dependencies issues
-**Solution**: Clear and reinstall
+### Issue: streamlit command not found
+**Solution**: Install UI dependencies in the same Python environment used to run backend/UI
 ```bash
-cd virtual-lab-ui
-rm -rf node_modules package-lock.json
-npm install
+api/.venv/Scripts/python.exe -m pip install -r api/requirements.txt -r virtual-lab-ui/requirements.txt
 ```
 
 ### Issue: Slow response from backend
@@ -338,28 +324,11 @@ d:/DL/ADS_virtual_lab/
 │       ├── ml_models.py               # Model training
 │       ├── fusion.py                  # Data fusion
 │       └── clustering.py              # K-Means + PCA
-└── virtual-lab-ui/                    # Frontend React app
-    ├── src/
-    │   ├── App.jsx                   # Main app with splash
-    │   ├── index.css                 # Global styles
-    │   ├── utils/
-    │   │   └── api.js                # API client
-    │   └── components/
-    │       ├── Dashboard.jsx          # Main dashboard
-    │       ├── Header.jsx             # App header
-    │       ├── SplashScreen.jsx       # Animated intro
-    │       ├── ModuleCard.jsx         # Module cards
-    │       ├── ChartComponents.jsx    # Charts & visualizations
-    │       └── modules/
-    │           ├── DataViewer.jsx     # Data loading UI
-    │           ├── CleaningModule.jsx # Cleaning UI
-    │           ├── PreprocessingModule.jsx # Preprocessing UI
-    │           ├── ModelTrainingModule.jsx # Model training UI
-    │           └── FusionModule.jsx   # Fusion UI
-    ├── index.html                     # HTML entry point
-    ├── vite.config.js                 # Vite configuration
-    ├── package.json                   # JavaScript dependencies
-    └── README.md                      # Frontend README
+└── virtual-lab-ui/                    # Frontend Streamlit app
+   ├── app.py                         # Main Streamlit UI
+   ├── requirements.txt               # UI dependencies
+   ├── .gitignore
+   └── README.md                      # Frontend README
 ```
 
 ---
@@ -397,10 +366,7 @@ if __name__ == "__main__":
     app.run(debug=True, port=5001)  # Change port
 ```
 
-Update `virtual-lab-ui/src/utils/api.js`:
-```javascript
-const API_BASE = 'http://localhost:5001/api'
-```
+Update the API base URL from the Streamlit sidebar field after launching `virtual-lab-ui/app.py`.
 
 ---
 
@@ -438,5 +404,5 @@ For issues or questions:
 
 ---
 
-Built with ⚡ React, Vite & 🐍 Flask
+Built with 🎈 Streamlit & 🐍 Flask
 ADS Virtual Lab - Advanced Data Science Pipeline
